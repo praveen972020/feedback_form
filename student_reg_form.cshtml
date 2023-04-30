@@ -1,0 +1,670 @@
+﻿
+@{
+    ViewBag.Title = "student_reg_form";
+}
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/angular-ui-router.min.js"></script>
+<script src="~/Scripts/ng-img-crop.js"></script>
+<link href="~/Scripts/ng-img-crop.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-filestyle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css" rel="stylesheet" />
+<link href="~/Content/lightbox.css" rel="stylesheet" />
+<script src="~/Content/lightbox-plus-jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+<style>
+
+    .cropArea {
+        background: #E4E4E4;
+        overflow: hidden;
+        width: 450px;
+        height: 350px;
+    }
+</style>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/Content/StyleSheet1.css" />
+<div ng-controller="HomeCtrl" ng-app="MyApp" ng-cloak>
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Student Registration Form</h3>
+        </div>
+        @*<form role="form" name="myform" method="post"  action="@Url.Action("insertRecord","My")" novalidate enctype="multipart/form-data">*@
+        <form name="myform" ng-submit="submitForm()" novalidate action="@Url.Action("insertRecord","My")" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="name" text-center">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Your Name" ng-model="user.name" ng-required="true" ng-pattern="/^[a-zA-Z]+$/">
+                        <div ng-show="myform.name.$invalid && myform.name.$dirty">
+                            <span ng-show="myform.name.$error.required">Name is required.</span>
+                            <span ng-show="myform.name.$error.pattern">Please enter alphabets only for name.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="fathername" text-center">father name</label>
+                        <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Enter Your father name" ng-model="user.fathername" ng-required="true" ng-pattern="/^[a-zA-Z]+$/">
+                        <div ng-show="myform.fathername.$invalid && myform.fathername.$dirty">
+                            <span ng-show="myform.fathername.$error.required">fathername is required.</span>
+                            <span ng-show="myform.fathername.$error.pattern">Please enter alphabets only for fathername.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="mothername" text-center">mothername</label>
+                        <input type="text" class="form-control" name="mothername" id="mothername" placeholder="Enter Your mother name" ng-model="user.mothername" ng-required="true" ng-pattern="/^[a-zA-Z]+$/">
+                        <div ng-show="myform.mothername.$invalid && myform.mothername.$dirty">
+                            <span ng-show="myform.mothername.$error.required"> mother name is required.</span>
+                            <span ng-show="myform.mothername.$error.pattern">Please enter alphabets only for mothername.</span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <label for="email" text-center">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Your email" ng-model="user.email" ng-required="true" required pattern="">
+                        <div ng-show="myform.email.$invalid && myform.email.$dirty">
+                            <span ng-show="myform.email.$error.required">Email is required.</span>
+                            <span ng-show="myform.email.$error.email">Please enter a valid email address.</span>
+                            <span ng-show="myform.email.$error.pattern">Please enter a valid Gmail address.</span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <label for="contactno" text-center" minlength="10">Contact no.</label>
+                        <input type="text" class="form-control" name="contactno" id="contactno" minlength="10" maxlength="10" placeholder="Enter Your contact" ng-model="user.contactno" ng-required="true" ng-pattern="/^[0-9]{10}$/">
+                        <div ng-show="myform.contactno.$invalid && myform.contactno.$dirty">
+                            <span ng-show="myform.contactno.$error.required">Mobile number is required.</span>
+                            <span ng-show="myform.contactno.$error.pattern">Please enter a 10-digit mobile number.</span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <label for="course">Select your course</label>
+                        <select name="course" id="course" class="form-control">
+                            <option value="MCA">MCA</option>
+                            <option value="BCA">BCA</option>
+                            <option value="MBA">MBA</option>
+                            <option value="Btech(CSE)">Btech(CSE)</option>
+                            <option value="Btech(EC)">Btech(EC)</option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="address" text-center">Address</label>
+                        <input type="text" class="form-control" name="address" id="address" placeholder="Enter Your address" ng-model="user.address" ng-required="true">
+                        <div ng-show="myform.address.$invalid && myform.address.$dirty">
+                            <span ng-show="myform.assress.$error.required">DOB is required.</span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="dob">Enter your DOB</label><br />
+                        <input type="date" class="form-control" id="dob" name="dob" max="2005-12-31" ng-required="true" ng-model="user.dob">
+                        <div ng-show="myform.dob.$invalid && myform.dob.$dirty">
+                            <span ng-show="myform.dob.$error.required">DOB is required.</span>
+
+                        </div>
+
+                        <br /><br />
+                    </div>
+                    <br /><br />
+                        <div>Select an image file: <input type="file" id="fileInput" name="fileInput" /></div>
+                        <div class="cropArea">
+                            <img-crop image="myImage" result-image="myCroppedImage" name="myCroppedImage" id="myCroppedImage"></img-crop>
+                        </div>
+                        <div>Cropped Image:</div>
+                        <div><img ng-src="{{myCroppedImage}}" name="myCroppedImage" id="myCroppedImage" /></div>
+                          <input type="text" id="myCroppedImage" name="myCroppedImage" ng-model="myCroppedImage" style="display:none;"/>
+
+
+                </div>
+
+
+
+
+                <div class="row" style="margin-top:5px;">
+                    <div class="col-md-12 text-right">
+                        <input type="submit" class="btn btn-success " value="Submit" ng-disabled="myform.$invalid" />
+                        @*@<button type="button" class="btn btn-success float-right" ng-click="InsertRecord();">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Registration Record</h3>
+                </div>
+                <div class="card-body">
+                    <table id="myTable" class="table table-bordered" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center">SNO</th>
+
+                                <th style="text-align:center"> Name </th>
+                                <th style="text-align:center"> Father Name </th>
+                                <th style="text-align:center">Mother Name</th>
+                                <th style="text-align:center"> course </th>
+                                <th style="text-align:center"> contact </th>
+                                <th style="text-align:center"> email </th>
+                                <th style="text-align:center"> address </th>
+                                @* <th style="text-align:center" width="10%"> dob </th>*@
+                                <th style="text-align:center"><i class="fa fa-trash-o"></i></th>
+                                <th style="text-align:center"><i class="fa fa-edit"></i></th>
+                                <th style="text-align:center"><i class="fa fa-image"></i></th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="i in AllRecord">
+                                <td style="text-align:center">{{$index+1}}</td>
+
+                                <td>{{i.name}}</td>
+                                <td>{{i.fathername}}</td>
+                                <td>{{i.mothername}}</td>
+                                <td>{{i.course}}</td>
+                                <td>{{i.contactno}}</td>
+                                <td>{{i.email}}</td>
+                                <td>{{i.address}}</td>
+                                @*<td>{{i.dob}}</td>*@
+
+                                <td style="text-align:center;"><button class="icon" type="button" ng-click="deleteRecord(i.id);"><i class="fa fa-trash-o text-danger"></i></button></td>
+                                <td style="text-align:center"><button type="button" class="icon" ng-click="fetchidrecord(i.id,$index);"><i class="fa fa-edit text-success"></i></button></td>
+                                @*<td style="text-align:center" class="popup-image"><a href="~/images/{{i.fileName}}" ><img src="~/images/{{i.fileName}}" height="20px"/></a></td>*@
+                                <td style="text-align:center">
+                                    <button type="button" class="icon" ng-click="fetchpic(i.id,$index);">
+                                        <img src="~/images/{{i.fileName}}" height="20px" />
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modal-sm">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Profile Picture</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <img src="~/images/{{source}}" height="250px" width="270px" />
+
+
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal fade" id="modal-xl">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Student detail</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="name" text-center">Name</label>
+                                    <input type="text" class="form-control" name="name1" id="name1" ng-model="name1" pattern="[a-zA-Z]{1,20}" placeholder="Enter Your Name" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="fathername" text-center">father name</label>
+                                    <input type="text" class="form-control" name="fathername1" id="fathername1" ng-model="fathername1" placeholder="Enter Your father name" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="mothername" text-center">mothername</label>
+                                    <input type="text" class="form-control" name="mothername1" id="mothername1" ng-model="mothername1" placeholder="Enter Your mother name" required>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <label for="email" text-center">Email</label>
+                                    <input type="email" class="form-control" name="email1" id="email1" ng-model="email1" placeholder="Enter Your email" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="contactno" text-center" minlength="10">Contact no.</label>
+                                    <input type="text" class="form-control" name="contactno1" id="contactno1" ng-model="contactno1" placeholder="Enter Your contact" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="course">Select your course</label>
+                                    <select name="course" id="course1" ng-model="course1" class="form-control">
+                                        <option value="MCA">MCA</option>
+                                        <option value="BCA">BCA</option>
+                                        <option value="MBA">MBA</option>
+                                        <option value="Btech(CSE)">Btech(CSE)</option>
+                                        <option value="Btech(EC)">Btech(EC)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="address" text-center">Address</label>
+                                    <input type="text" class="form-control" name="address" id="address1" ng-model="address1" pattern="[a-zA-Z]{1,20}" placeholder="Enter Your address" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="dob">Enter your DOB</label><br />
+                                    <input type="text" class="form-control" id="dob1" min="1995-12-31" max="2005-12-31" required>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            @* <div class="row" style="margin-top:5px;">
+                                    <div class="col-md-12">
+                                        <button type="button" ng-click="UpdateRecord();" class="btn btn-success float-right">Update</button>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="updateRecord(id);">Update</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal fade" id="modelforpicture">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Profile Picture</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+              
+
+
+
+
+                   
+                        
+
+</div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    
+
+    var app = angular.module('MyApp', ['ngImgCrop']);
+    app.controller('HomeCtrl', function ($scope, $window, myService, $timeout) {
+
+
+        $scope.myImage = '';
+        $scope.myCroppedImage = '';
+        var handleFileSelect = function (evt) {
+            var file = evt.currentTarget.files[0];
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $scope.$apply(function ($scope) {
+                    $scope.myImage = evt.target.result;
+                });
+            };
+            reader.readAsDataURL(file);
+        };
+        
+        angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+
+
+
+
+        $scope.uppic = function () {
+            $("#modelforpicture").modal('show');
+        }
+
+
+        $scope.InsertRecord = function () {
+            // var fileInput = document.getElementById("img");
+            //var file = fileInput.files[0];
+            //var reader = new FileReader();
+            // reader.onload = function () {
+            //var file = $("#img").get(0).files;
+            //var img = new FormData();
+            //img.append('img', $scope.img);
+            var user = "";
+            $scope.imageDate = "";
+            var fileName = "";
+            // document.getElementById('img').addEventListener('change', function () {
+
+            //  var reader = new FileReader();
+            //  reader.onload = function () {
+            //   $scope.imageData = reader.result;
+            //   var fileName = document.getElementById('img').value.split('\\').pop();
+            //  }
+            // alert(fileName);
+
+            var file = $scope.img;
+            var user = { Name: $("#name").val(), Email: $("#email").val(), Contact: $("#contactno").val(), fathername: $("#fathername").val(), mothername: $("#mothername").val(), address: $("#address").val(), course: $("#course").val(), dob: $("#dob").val(), img: $("#dob").val() };
+
+
+            //  var user = { Name: $("#name").val(), Email: $("#email").val(), Contact: $("#contactno").val(), fathername: $("#fathername").val(), mothername: $("#mothername").val(), address: $("#address").val(), course: $("#course").val(), dob: $("dob").val(), };
+
+
+            /* var user = new FormData();
+             user.append('file', $scope.img);
+             user.append('name', $scope.name);
+             user.append('contact', $scope.contactno);*/
+
+
+            console.log(user);
+            //});
+            myService.UserLogin("/My/insertRecord", user).then(function (d) {
+
+                console.log(d.data);
+                alert(d.data);
+
+            });
+
+
+        }
+        //  reader.readAsArrayBuffer(file);
+        // }
+
+        /*    $scope.InsertRecord = function () {
+                var user = { Name: $("#name").val(), Email: $("#email").val(), Contact: $("#contactno").val(), fathername: $("#fathername").val(), mothername: $("#mothername").val(), address: $("#address").val(), course: $("#course").val(), dob: $("#dob") };
+                console.log(user);
+                myService.UserLogin("/My/insertRecord", user).then(function (d) {
+                    console.log(d.data);
+                    alert(d.data);
+                });
+            }*/
+
+        $scope.deleteRecord = function (id) {
+
+            var user = { id: id };
+            myService.UserLogin("/My/deleteRecord", user).then(function (d) {
+                console.log(d.data);
+                alert(d.data);
+            });
+        }
+
+        $scope.updateRecord = function (id) {
+
+            var user = { id: id, Name: $("#name1").val(), Email: $("#email1").val(), contact: $("#contactno1").val(), fathername: $("#fathername1").val(), mothername: $("#mothername1").val(), address: $("#address1").val(), course: $("#course1").val() };
+            console.log(user);
+            myService.UserLogin("/My/updateRecord", user).then(function (d) {
+
+                console.log(d.data);
+                alert(d.data);
+            });
+
+
+
+        }
+
+        $scope.fetchpic = function (id, index) {
+            $("#modal-sm").modal('show');
+            $scope.id = $scope.AllRecord[index].id;
+            console.log($scope.id);
+            $scope.source = $scope.AllRecord[index].fileName;
+
+        }
+
+        $scope.fetchidrecord = function (id, index) {
+            $("#modal-xl").modal('show');
+            $scope.id = $scope.AllRecord[index].id;
+            console.log($scope.id);
+            $scope.name1 = $scope.AllRecord[index].name;
+            console.log($scope.name1);
+            $scope.fathername1 = $scope.AllRecord[index].fathername;
+            console.log($scope.fathername1);
+            $scope.mothername1 = $scope.AllRecord[index].mothername;
+            console.log($scope.mothername1);
+            $scope.contactno1 = $scope.AllRecord[index].contactno;
+            console.log($scope.contactno1);
+            $scope.email1 = $scope.AllRecord[index].email;
+            console.log($scope.email1);
+            $scope.course1 = $scope.AllRecord[index].course;
+            console.log($scope.course1);
+            $scope.address1 = $scope.AllRecord[index].address;
+            console.log($scope.address1);
+
+
+
+
+
+        }
+
+
+
+
+        $scope.fetchRecord = function () {
+            myService.UserLogin("/My/FetchRecord").then(function (d) {
+                $scope.AllRecord = d.data.list1;
+                $scope.templist = angular.copy($scope.AllRecord);
+
+                console.log($scope.AllRecord);
+            });
+        }
+        $scope.fetchRecord();
+    });
+    app.service("myService", function ($http) {
+        this.UserLogin = function (Path, user) {
+            var response = $http({
+                method: "post",
+                url: Path,
+                data: JSON.stringify(user),
+                dataType: "json"
+            });
+            return response;
+        }
+    });</script>
+
+@*<script type="text/javascript">
+        angular.module('myApp', ['ngFileUpload']).controller('MyController', ['$scope', 'Upload', function ($scope, Upload) {
+            $scope.onFileSelect = function ($files) {
+                if ($files && $files.length) {
+                    var file = $files[0];
+                    Name: $("#name").val(), Email: $("#email").val(), Contact: $("#contactno").val(), fathername: $("#fathername").val(), mothername: $("#mothername").val(), address: $("#address").val(), course: $("#course").val(), dob: $("#dob").val(), img: $("#img")
+                }
+                    // Upload file to server
+                    Upload.upload({
+                        url: '@Url.Action("insertRecord")',
+                        method: 'POST',
+                        file: file,
+                        fields: { name: $scope.name, fathername: $scope.fathername, phone: $scope.contactno, mothername }
+                    }).then(function (response) {
+                        // Handle success response
+
+                    }, function (response) {
+                        // Handle error response
+                    });
+                }
+            };
+        }]);
+    </script>
+*@
+
+
+<script>
+    function a() {
+        let name = document.forms["myform"]["name"].value;
+        let fathername = document.forms["myform"]["fathername"].value;
+        let mothername = document.forms["myform"]["mothername"].value;
+        let contactno = document.forms["myform"]["contactno"].value;
+        let email = document.forms["myform"]["email"].value;
+        let address = document.forms["myform"]["address"].value;
+        let date1 = document.forms["myform"]["DOB"].value;
+        let v1 = true;
+        let status = true;
+
+
+
+        if ((name == "")) {
+
+            v1 = false;
+
+        }
+
+        else {
+
+
+            if (/^[A-Za-z ]+$/.test(name) == false) {
+                status = false;
+
+            }
+        }
+        if ((fathername == "")) {
+
+            v1 = false;
+
+        }
+        else {
+
+            if (/^[A-Za-z ]+$/.test(fathername) == false) {
+                status = false;
+            }
+        }
+
+
+        if ((mothername == "")) {
+
+            v1 = false;
+        }
+        else {
+            if (/^[A-Za-z ]+$/.test(mothername) == false) {
+                status = false;
+            }
+        }
+
+
+        if ((contactno == "")) {
+
+            v1 = false;
+        }
+        else {
+            if (contactno.length < 10) {
+                alert('number should be 10 digit');
+            }
+            if (contactno.length > 10) {
+                alert('number should be 10 digit');
+            }
+
+        }
+
+        if ((email == "")) {
+
+            v1 = false;
+        }
+        else {
+
+            if (/^[a-zA-Z0-9._%+-]+@@gla\.ac\.in$/.test(email) == false) {
+                alert('gmail not valid');
+            }
+        }
+
+
+
+
+
+        if ((address == "")) {
+
+            v1 = false;
+        }
+        if (v1 == false) {
+            alert('some field are empty');
+            return v1;
+        }
+        if (status == false) {
+            alert('some field not allowed number or special symbol');
+        }
+        if (date1 != "") {
+            return validateDOB(date1);
+        }
+
+
+    }
+
+    function validateDOB(dob) {
+        // Parse the input date string into a Date object
+        var inputDate = new Date(dob);
+
+        // Calculate the difference between the current date and the input date
+        var diffInMs = Date.now() - inputDate.getTime();
+
+        // Convert the difference to years
+        var ageDate = new Date(diffInMs);
+        var age = Math.abs(2023 - ageDate.getUTCFullYear());
+
+        // Check if the age is greater than or equal to 18
+        if (age < 18) {
+            alert('age less then 18 sorry you are not eligible');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
